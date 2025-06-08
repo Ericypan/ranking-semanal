@@ -57,22 +57,20 @@
         <header class="text-center mb-10 md:mb-16">
             <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/504266696_4146340088932505_794890781888304560_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kq4Y6UzD-3oQ7kNvwG3ZjyZ&_nc_oc=AdlCCSF7Ewg9OuybhDGi5ebLW9al9JsZ5l22TYhKPda_yvQSF07mgMo9ay3aGtBF9JHdUxs2y2kmivv6jyQWk9nd&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=3ouGmZD5wIbwRFmHasqL4g&oh=00_AfN6T8BPxfzHiBwKwptlQqJccj8s9Kfpg7Iy3sdusD9Shw&oe=684BDAEE" 
                  alt="Logomarca da Equipe Ax extreme" 
-                 class="mx-auto h-36 md:h-44 w-auto ranking-item is-revealed"
+                 class="mx-auto h-36 md:h-44 w-auto"
                  onerror="this.onerror=null;this.src='https://placehold.co/176x176/ffffff/16a34a?text=Ax';">
-            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900 ranking-item is-revealed" style="transition-delay: 0.1s;">Ranking de Assiduidade</h1>
-            <p class="text-green-600 text-lg ranking-item is-revealed" style="transition-delay: 0.2s;">A revelação da semana...</p>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900">Ranking de Assiduidade</h1>
+            <p class="text-green-600 text-lg">A classificação da semana</p>
         </header>
 
         <!-- Seção da Escada do Ranking -->
-        <section class="max-w-4xl mx-auto">
+        <section id="ranking-section" class="max-w-4xl mx-auto">
             <div class="flex flex-col items-center space-y-2">
-                
-                <!-- O ranking será populado aqui pelo JavaScript para criar o efeito de suspense -->
-
+                <!-- O ranking será populado aqui pelo JavaScript -->
             </div>
         </section>
 
-        <footer class="text-center mt-12 pt-8 border-t border-gray-200 opacity-0" id="footer">
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200 opacity-0 transition-opacity duration-1000" id="footer">
              <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/505586939_4146340092265838_7091657238944270852_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2fy3dZ7ZviMQ7kNvwF5orL2&_nc_oc=AdlfbghW5nD9SmLHVJuGpHEm3HMb-8oKeBD9dXcKhD1YRa8kg_FPknte6cJK4zehn0ObRZl0QKJ4avDp3MDvZKXf&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=ORmH3HA8QxUk5a_BO0KucA&oh=00_AfPNym8rt8whgMjFrH8zvrIpX7iX5ZjtW5YNty4EU4Lz_Q&oe=684BD396" 
                  alt="Logomarca Ax extreme horizontal" 
                  class="mx-auto h-12 w-auto mb-4"
@@ -84,23 +82,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const rankingData = [
-                { position: 1, name: 'Ivanilda', points: 5, width: 'w-full', bg: 'bg-green-100', shadow: 'shadow-xl', z: 11, avatar: 'I' },
-                { position: 2, name: 'Flankiln', points: 5, width: 'w-[98%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 10, avatar: 'F' },
-                { position: 3, name: 'Bia', points: 4, width: 'w-[96%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 9, avatar: 'B' },
-                { position: 4, name: 'Ismênia', points: 4, width: 'w-11/12', bg: 'bg-white', shadow: 'shadow-md', z: 8, avatar: 'Is' },
-                { position: 5, name: 'Aline', points: 4, width: 'w-10/12', bg: 'bg-white', shadow: 'shadow-md', z: 7, avatar: 'A' },
-                { position: 6, name: 'Elizandra', points: 4, width: 'w-[80%]', bg: 'bg-white', shadow: 'shadow-md', z: 6, avatar: 'E' },
-                { position: 7, name: 'Iara Jamile', points: 3, width: 'w-9/12', bg: 'bg-white', shadow: 'shadow-sm', z: 5, avatar: 'IJ' },
-                { position: 8, name: 'Eduarda', points: 3, width: 'w-[70%]', bg: 'bg-white', shadow: 'shadow-sm', z: 4, avatar: 'Ed' },
-                { position: 9, name: 'Layssa', points: 2, width: 'w-8/12', bg: 'bg-white', shadow: 'shadow-sm', z: 3, avatar: 'L' },
-                { position: 10, name: 'Silvana', points: 2, width: 'w-[60%]', bg: 'bg-white', shadow: 'shadow-sm', z: 2, avatar: 'S' },
-                { position: 11, name: 'Isa', points: 1, width: 'w-7/12', bg: 'bg-white', shadow: 'shadow-sm', z: 1, avatar: 'Is' }
+                { position: 1, name: 'Ivanilda', points: 5, width: 'w-full', bg: 'bg-green-100', shadow: 'shadow-xl', z: 12, avatar: 'I' },
+                { position: 2, name: 'Flankiln', points: 5, width: 'w-[98%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 11, avatar: 'F' },
+                { position: 3, name: 'Bia', points: 4, width: 'w-[96%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 10, avatar: 'B' },
+                { position: 4, name: 'Gislayne', points: 4, width: 'w-11/12', bg: 'bg-white', shadow: 'shadow-md', z: 9, avatar: 'G' },
+                { position: 5, name: 'Ismênia', points: 4, width: 'w-10/12', bg: 'bg-white', shadow: 'shadow-md', z: 8, avatar: 'Is' },
+                { position: 6, name: 'Aline', points: 4, width: 'w-[85%]', bg: 'bg-white', shadow: 'shadow-md', z: 7, avatar: 'A' },
+                { position: 7, name: 'Elizandra', points: 4, width: 'w-[80%]', bg: 'bg-white', shadow: 'shadow-md', z: 6, avatar: 'E' },
+                { position: 8, name: 'Iara Jamile', points: 3, width: 'w-9/12', bg: 'bg-white', shadow: 'shadow-sm', z: 5, avatar: 'IJ' },
+                { position: 9, name: 'Eduarda', points: 3, width: 'w-[70%]', bg: 'bg-white', shadow: 'shadow-sm', z: 4, avatar: 'Ed' },
+                { position: 10, name: 'Layssa', points: 2, width: 'w-8/12', bg: 'bg-white', shadow: 'shadow-sm', z: 3, avatar: 'L' },
+                { position: 11, name: 'Silvana', points: 2, width: 'w-[60%]', bg: 'bg-white', shadow: 'shadow-sm', z: 2, avatar: 'S' },
+                { position: 12, name: 'Isa', points: 1, width: 'w-7/12', bg: 'bg-white', shadow: 'shadow-sm', z: 1, avatar: 'Is' }
             ];
 
-            const container = document.querySelector('.flex.flex-col.items-center');
+            const rankingContainer = document.querySelector('#ranking-section .flex.flex-col');
             const footer = document.getElementById('footer');
 
-            // Criar e esconder os elementos primeiro
+            // Preparar os itens do ranking no DOM
             rankingData.forEach(item => {
                 const starsHTML = Array.from({ length: item.points }, (_, i) => 
                     `<span class="star" style="--star-delay: ${i * 0.1}s;">⭐</span>`
@@ -115,24 +114,23 @@
                              <div class="stars text-sm md:text-base">${starsHTML}</div>
                         </div>
                     </div>`;
-                container.innerHTML += itemHTML;
+                rankingContainer.innerHTML += itemHTML;
             });
 
-            // Revelar um por um, do último para o primeiro
-            const rankingItems = Array.from(container.querySelectorAll('.ranking-item'));
+            // Inicia a revelação
+            const rankingItems = Array.from(rankingContainer.querySelectorAll('.ranking-item'));
             const reversedItems = [...rankingItems].reverse();
 
-            let revealDelay = 1000; // Começa a revelação após 1 segundo
+            let revealDelay = 500; // Delay para começar a primeira revelação
             reversedItems.forEach(item => {
                 setTimeout(() => {
                     item.classList.add('is-revealed');
                 }, revealDelay);
-                revealDelay += 800; // Intervalo de 800ms entre cada revelação
+                revealDelay += 400; // Intervalo entre cada revelação (mais rápido agora)
             });
 
             // Revelar o rodapé no final
             setTimeout(() => {
-                footer.style.transition = 'opacity 1s ease-in-out';
                 footer.style.opacity = '1';
             }, revealDelay);
         });
