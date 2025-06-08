@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking de Corrida Semanal</title>
+    <title>Ranking de Assiduidade - Ax Extreme</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Poppins -->
@@ -14,153 +14,148 @@
         /* Estilos personalizados e animações */
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb; /* gray-50 */
         }
 
-        /* Animação para os elementos aparecerem */
+        /* Animação de entrada dos elementos */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Animação de brilho para as estrelas */
+        @keyframes starShine {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 4px #fde047; }
+            50% { transform: scale(1.15); text-shadow: 0 0 15px #fde047; }
         }
 
-        /* Classe para aplicar a animação */
         .animate-fade-in-up {
-            opacity: 0; /* Começa invisível */
+            opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        /* Efeito de brilho sutil no pódio */
-        .podium-place::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 0.75rem; /* 12px */
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .podium-place:hover::before {
-            opacity: 1;
+        .star {
+            display: inline-block;
+            color: #facc15; /* yellow-400 */
+            animation: starShine 2s infinite ease-in-out;
+            /* Delay de animação diferente para cada estrela */
         }
         
-        /* Cor de fundo gradiente */
-        .bg-gradient-custom {
-            background-color: #166534; /* green-800 */
-            background-image: linear-gradient(135deg, #166534 0%, #15803d 50%, #16a34a 100%);
+        /* Efeito de hover para os degraus da escada */
+        .stair-step:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            z-index: 10;
         }
     </style>
 </head>
-<body class="bg-gradient-custom text-white antialiased">
+<body class="bg-white text-gray-800 antialiased">
 
     <div class="container mx-auto px-4 py-8 md:py-12">
-        <!-- Título principal -->
-        <header class="text-center mb-10 md:mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold tracking-tight animate-fade-in-up" style="animation-delay: 0s;">
-                🏆 Ranking da Corrida 🏆
-            </h1>
-            <p class="text-green-200 text-lg mt-2 animate-fade-in-up" style="animation-delay: 0.2s;">Atualização da semana</p>
+        <!-- Cabeçalho com a logomarca */ -->
+        <header class="text-center mb-10 md:mb-16 animate-fade-in-up">
+            <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/504266696_4146340088932505_794890781888304560_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kq4Y6UzD-3oQ7kNvwG3ZjyZ&_nc_oc=AdlCCSF7Ewg9OuybhDGi5ebLW9al9JsZ5l22TYhKPda_yvQSF07mgMo9ay3aGtBF9JHdUxs2y2kmivv6jyQWk9nd&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=3ouGmZD5wIbwRFmHasqL4g&oh=00_AfN6T8BPxfzHiBwKwptlQqJccj8s9Kfpg7Iy3sdusD9Shw&oe=684BDAEE" 
+                 alt="Logomarca da Equipe Ax extreme" 
+                 class="mx-auto h-36 md:h-44 w-auto"
+                 onerror="this.onerror=null;this.src='https://placehold.co/176x176/ffffff/16a34a?text=Ax';">
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900">Ranking de Assiduidade</h1>
+            <p class="text-green-600 text-lg animate-fade-in-up" style="animation-delay: 0.2s;">Treinos da Semana</p>
         </header>
 
-        <!-- Seção do Pódio -->
-        <section class="podium mb-12">
-            <div class="flex justify-center items-end gap-2 md:gap-4 max-w-4xl mx-auto">
+        <!-- Seção da Escada do Ranking -->
+        <section class="max-w-4xl mx-auto">
+            <div class="flex flex-col items-center space-y-2">
                 
-                <!-- 2º Lugar -->
-                <div class="w-1/3 text-center animate-fade-in-up" style="animation-delay: 0.6s;">
-                    <div class="podium-place relative bg-green-600/80 shadow-2xl rounded-t-xl p-4 md:p-6" style="height: 12rem;">
-                        <div class="text-5xl md:text-6xl font-bold text-green-100 opacity-70">2</div>
-                        <img src="https://placehold.co/80x80/a7f3d0/14532d?text=B" alt="Avatar de Bia" class="mx-auto rounded-full border-4 border-green-400 w-16 h-16 md:w-20 md:h-20 mt-2 mb-3 shadow-lg">
-                        <h3 class="font-bold text-lg md:text-xl">Bia</h3>
-                        <p class="text-green-200 text-sm md:text-base">4 pontos</p>
+                <!-- 1º Lugar -->
+                <div class="stair-step relative w-full bg-green-100 p-4 rounded-lg shadow-xl transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s; z-index: 10;">
+                    <div class="flex items-center space-x-4">
+                         <span class="text-3xl font-bold text-green-600">1º</span>
+                         <img src="https://placehold.co/64x64/dcfce7/166534?text=I" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow">
+                         <img src="https://placehold.co/64x64/dcfce7/166534?text=F" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow -ml-8">
+                         <div class="flex-1"><h3 class="font-bold text-lg">Ivanilda & Flankiln</h3></div>
+                         <div class="stars text-lg"><span class="star" style="animation-delay: 0.1s;">⭐</span><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.3s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.5s;">⭐</span></div>
                     </div>
                 </div>
 
-                <!-- 1º Lugar -->
-                <div class="w-1/3 text-center animate-fade-in-up" style="animation-delay: 0.4s;">
-                    <div class="podium-place relative bg-green-500/90 shadow-2xl rounded-t-xl p-4 md:p-6" style="height: 16rem;">
-                        <div class="text-6xl md:text-7xl font-bold text-yellow-300">1</div>
-                         <div class="flex justify-center gap-2">
-                             <img src="https://placehold.co/80x80/a7f3d0/14532d?text=I" alt="Avatar de Ivanilda" class="rounded-full border-4 border-yellow-300 w-16 h-16 md:w-20 md:h-20 mt-2 mb-3 shadow-lg">
-                             <img src="https://placehold.co/80x80/a7f3d0/14532d?text=F" alt="Avatar de Flankiln" class="rounded-full border-4 border-yellow-300 w-16 h-16 md:w-20 md:h-20 mt-2 mb-3 shadow-lg">
-                         </div>
-                        <h3 class="font-bold text-lg md:text-xl">Ivanilda & Flankiln</h3>
-                        <p class="text-green-100 text-sm md:text-base">5 pontos</p>
+                <!-- 2º Lugar -->
+                <div class="stair-step relative w-11/12 bg-gray-100 p-4 rounded-lg shadow-lg transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.4s; z-index: 9;">
+                    <div class="flex items-center space-x-4">
+                         <span class="text-2xl font-bold text-gray-500">2º</span>
+                         <img src="https://placehold.co/60x60/e5e7eb/374151?text=B" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow">
+                         <div class="flex-1"><h3 class="font-bold text-lg">Bia</h3></div>
+                         <div class="stars text-base"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
                     </div>
                 </div>
 
                 <!-- 3º Lugar -->
-                <div class="w-1/3 text-center animate-fade-in-up" style="animation-delay: 0.8s;">
-                    <div class="podium-place relative bg-green-700/70 shadow-2xl rounded-t-xl p-4 md:p-6" style="height: 9rem;">
-                        <div class="text-4xl md:text-5xl font-bold text-green-200 opacity-60">3</div>
-                        <img src="https://placehold.co/72x72/a7f3d0/14532d?text=IJ" alt="Avatar de Iara Jamile" class="mx-auto rounded-full border-4 border-green-500 w-14 h-14 md:w-16 md:h-16 mt-2 mb-3 shadow-lg">
-                        <h3 class="font-bold text-lg md:text-xl">Iara Jamile</h3>
-                        <p class="text-green-300 text-sm md:text-base">3 pontos</p>
+                <div class="stair-step relative w-10/12 bg-white p-4 rounded-lg shadow-md transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s; z-index: 8;">
+                    <div class="flex items-center space-x-4">
+                         <span class="text-xl font-bold text-gray-400">3º</span>
+                         <img src="https://placehold.co/56x56/e5e7eb/4b5563?text=IJ" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow">
+                         <div class="flex-1"><h3 class="font-semibold text-lg">Iara Jamile</h3></div>
+                         <div class="stars text-base"><span class="star" style="animation-delay: 0.3s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.9s;">⭐</span></div>
                     </div>
                 </div>
-
+                
+                <!-- Demais Posições -->
+                <div class="stair-step relative w-9/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s; z-index: 7;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">4.</span>
+                        <span class="flex-1 font-medium">Ismênia</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
+                    </div>
+                </div>
+                <div class="stair-step relative w-9/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s; z-index: 6;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">5.</span>
+                        <span class="flex-1 font-medium">Aline</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
+                    </div>
+                </div>
+                 <div class="stair-step relative w-9/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s; z-index: 5;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">6.</span>
+                        <span class="flex-1 font-medium">Elizandra</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
+                    </div>
+                </div>
+                <div class="stair-step relative w-8/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.9s; z-index: 4;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">7.</span>
+                        <span class="flex-1 font-medium">Eduarda</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.3s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.9s;">⭐</span></div>
+                    </div>
+                </div>
+                <div class="stair-step relative w-7/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.0s; z-index: 3;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">8.</span>
+                        <span class="flex-1 font-medium">Layssa</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
+                    </div>
+                </div>
+                 <div class="stair-step relative w-7/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.1s; z-index: 2;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">9.</span>
+                        <span class="flex-1 font-medium">Silvana</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
+                    </div>
+                </div>
+                 <div class="stair-step relative w-6/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.2s; z-index: 1;">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-green-600 w-8 text-center">10.</span>
+                        <span class="flex-1 font-medium">Isa</span>
+                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.5s;">⭐</span></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Lista dos Demais Corredores -->
-        <section class="max-w-2xl mx-auto">
-            <h2 class="text-2xl font-bold text-center mb-6 animate-fade-in-up" style="animation-delay: 1s;">Demais participantes</h2>
-            <div class="space-y-3">
-                <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.1s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">4.</span>
-                    <span class="flex-1 font-medium text-lg">Ismênia</span>
-                    <span class="bg-green-600 text-green-100 text-xs font-bold px-3 py-1 rounded-full">4 Pontos</span>
-                </div>
-                 <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.2s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">5.</span>
-                    <span class="flex-1 font-medium text-lg">Aline</span>
-                    <span class="bg-green-600 text-green-100 text-xs font-bold px-3 py-1 rounded-full">4 Pontos</span>
-                </div>
-                 <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.3s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">6.</span>
-                    <span class="flex-1 font-medium text-lg">Elizandra</span>
-                    <span class="bg-green-600 text-green-100 text-xs font-bold px-3 py-1 rounded-full">4 Pontos</span>
-                </div>
-                 <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.4s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">7.</span>
-                    <span class="flex-1 font-medium text-lg">Eduarda</span>
-                    <span class="bg-green-600 text-green-100 text-xs font-bold px-3 py-1 rounded-full">3 Pontos</span>
-                </div>
-                 <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.5s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">8.</span>
-                    <span class="flex-1 font-medium text-lg">Layssa</span>
-                    <span class="bg-green-700 text-green-200 text-xs font-bold px-3 py-1 rounded-full">2 Pontos</span>
-                </div>
-                 <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.6s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">9.</span>
-                    <span class="flex-1 font-medium text-lg">Silvana</span>
-                    <span class="bg-green-700 text-green-200 text-xs font-bold px-3 py-1 rounded-full">2 Pontos</span>
-                </div>
-                 <!-- Runner Item -->
-                <div class="flex items-center bg-green-800/50 p-4 rounded-lg shadow-md transition-transform hover:scale-105 hover:bg-green-800/80 animate-fade-in-up" style="animation-delay: 1.7s;">
-                    <span class="text-lg font-semibold text-green-300 w-8">10.</span>
-                    <span class="flex-1 font-medium text-lg">Isa</span>
-                    <span class="bg-green-900 text-green-300 text-xs font-bold px-3 py-1 rounded-full">1 Ponto</span>
-                </div>
-            </div>
-        </section>
-
-        <footer class="text-center mt-12 text-green-300/70 text-sm animate-fade-in-up" style="animation-delay: 1.8s;">
-            <p>Continue correndo e superando seus limites!</p>
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200 animate-fade-in-up" style="animation-delay: 1.3s;">
+             <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/505586939_4146340092265838_7091657238944270852_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2fy3dZ7ZviMQ7kNvwF5orL2&_nc_oc=AdlfbghW5nD9SmLHVJuGpHEm3HMb-8oKeBD9dXcKhD1YRa8kg_FPknte6cJK4zehn0ObRZl0QKJ4avDp3MDvZKXf&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=ORmH3HA8QxUk5a_BO0KucA&oh=00_AfPNym8rt8whgMjFrH8zvrIpX7iX5ZjtW5YNty4EU4Lz_Q&oe=684BD396" 
+                 alt="Logomarca Ax extreme horizontal" 
+                 class="mx-auto h-12 w-auto mb-4"
+                 onerror="this.onerror=null;this.src='';">
+            <p class="text-gray-500">A dedicação de hoje é o resultado de amanhã.</p>
         </footer>
 
     </div>
