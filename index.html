@@ -17,148 +17,125 @@
             background-color: #f9fafb; /* gray-50 */
         }
 
-        /* Animação de entrada dos elementos */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         /* Animação de brilho para as estrelas */
         @keyframes starShine {
             0%, 100% { transform: scale(1); text-shadow: 0 0 4px #fde047; }
             50% { transform: scale(1.15); text-shadow: 0 0 15px #fde047; }
         }
 
-        .animate-fade-in-up {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
         .star {
             display: inline-block;
             color: #facc15; /* yellow-400 */
             animation: starShine 2s infinite ease-in-out;
-            /* Delay de animação diferente para cada estrela */
+            animation-delay: var(--star-delay, 0s);
         }
         
         /* Efeito de hover para os degraus da escada */
         .stair-step:hover {
             transform: scale(1.02);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            z-index: 10;
+        }
+
+        /* Estilo inicial dos itens do ranking (escondidos) */
+        .ranking-item {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.95);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        /* Estilo dos itens revelados */
+        .ranking-item.is-revealed {
+            opacity: 1;
+            transform: translateX(0) scale(1);
         }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
 
     <div class="container mx-auto px-4 py-8 md:py-12">
-        <!-- Cabeçalho com a logomarca */ -->
-        <header class="text-center mb-10 md:mb-16 animate-fade-in-up">
+        <!-- Cabeçalho com a logomarca -->
+        <header class="text-center mb-10 md:mb-16">
             <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/504266696_4146340088932505_794890781888304560_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kq4Y6UzD-3oQ7kNvwG3ZjyZ&_nc_oc=AdlCCSF7Ewg9OuybhDGi5ebLW9al9JsZ5l22TYhKPda_yvQSF07mgMo9ay3aGtBF9JHdUxs2y2kmivv6jyQWk9nd&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=3ouGmZD5wIbwRFmHasqL4g&oh=00_AfN6T8BPxfzHiBwKwptlQqJccj8s9Kfpg7Iy3sdusD9Shw&oe=684BDAEE" 
                  alt="Logomarca da Equipe Ax extreme" 
-                 class="mx-auto h-36 md:h-44 w-auto"
+                 class="mx-auto h-36 md:h-44 w-auto ranking-item is-revealed"
                  onerror="this.onerror=null;this.src='https://placehold.co/176x176/ffffff/16a34a?text=Ax';">
-            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900">Ranking de Assiduidade</h1>
-            <p class="text-green-600 text-lg animate-fade-in-up" style="animation-delay: 0.2s;">Treinos da Semana</p>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900 ranking-item is-revealed" style="transition-delay: 0.1s;">Ranking de Assiduidade</h1>
+            <p class="text-green-600 text-lg ranking-item is-revealed" style="transition-delay: 0.2s;">A revelação da semana...</p>
         </header>
 
         <!-- Seção da Escada do Ranking -->
         <section class="max-w-4xl mx-auto">
             <div class="flex flex-col items-center space-y-2">
                 
-                <!-- 1º Lugar -->
-                <div class="stair-step relative w-full bg-green-100 p-4 rounded-lg shadow-xl transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s; z-index: 10;">
-                    <div class="flex items-center space-x-4">
-                         <span class="text-3xl font-bold text-green-600">1º</span>
-                         <img src="https://placehold.co/64x64/dcfce7/166534?text=I" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow">
-                         <img src="https://placehold.co/64x64/dcfce7/166534?text=F" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow -ml-8">
-                         <div class="flex-1"><h3 class="font-bold text-lg">Ivanilda & Flankiln</h3></div>
-                         <div class="stars text-lg"><span class="star" style="animation-delay: 0.1s;">⭐</span><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.3s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.5s;">⭐</span></div>
-                    </div>
-                </div>
+                <!-- O ranking será populado aqui pelo JavaScript para criar o efeito de suspense -->
 
-                <!-- 2º Lugar -->
-                <div class="stair-step relative w-11/12 bg-gray-100 p-4 rounded-lg shadow-lg transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.4s; z-index: 9;">
-                    <div class="flex items-center space-x-4">
-                         <span class="text-2xl font-bold text-gray-500">2º</span>
-                         <img src="https://placehold.co/60x60/e5e7eb/374151?text=B" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow">
-                         <div class="flex-1"><h3 class="font-bold text-lg">Bia</h3></div>
-                         <div class="stars text-base"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
-                    </div>
-                </div>
-
-                <!-- 3º Lugar -->
-                <div class="stair-step relative w-10/12 bg-white p-4 rounded-lg shadow-md transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s; z-index: 8;">
-                    <div class="flex items-center space-x-4">
-                         <span class="text-xl font-bold text-gray-400">3º</span>
-                         <img src="https://placehold.co/56x56/e5e7eb/4b5563?text=IJ" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow">
-                         <div class="flex-1"><h3 class="font-semibold text-lg">Iara Jamile</h3></div>
-                         <div class="stars text-base"><span class="star" style="animation-delay: 0.3s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.9s;">⭐</span></div>
-                    </div>
-                </div>
-                
-                <!-- Demais Posições -->
-                <div class="stair-step relative w-9/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s; z-index: 7;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">4.</span>
-                        <span class="flex-1 font-medium">Ismênia</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
-                    </div>
-                </div>
-                <div class="stair-step relative w-9/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s; z-index: 6;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">5.</span>
-                        <span class="flex-1 font-medium">Aline</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
-                    </div>
-                </div>
-                 <div class="stair-step relative w-9/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s; z-index: 5;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">6.</span>
-                        <span class="flex-1 font-medium">Elizandra</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.2s;">⭐</span><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
-                    </div>
-                </div>
-                <div class="stair-step relative w-8/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.9s; z-index: 4;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">7.</span>
-                        <span class="flex-1 font-medium">Eduarda</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.3s;">⭐</span><span class="star" style="animation-delay: 0.6s;">⭐</span><span class="star" style="animation-delay: 0.9s;">⭐</span></div>
-                    </div>
-                </div>
-                <div class="stair-step relative w-7/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.0s; z-index: 3;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">8.</span>
-                        <span class="flex-1 font-medium">Layssa</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
-                    </div>
-                </div>
-                 <div class="stair-step relative w-7/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.1s; z-index: 2;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">9.</span>
-                        <span class="flex-1 font-medium">Silvana</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.4s;">⭐</span><span class="star" style="animation-delay: 0.8s;">⭐</span></div>
-                    </div>
-                </div>
-                 <div class="stair-step relative w-6/12 bg-white p-3 rounded-lg shadow-sm transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.2s; z-index: 1;">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-green-600 w-8 text-center">10.</span>
-                        <span class="flex-1 font-medium">Isa</span>
-                        <div class="stars text-sm"><span class="star" style="animation-delay: 0.5s;">⭐</span></div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <footer class="text-center mt-12 pt-8 border-t border-gray-200 animate-fade-in-up" style="animation-delay: 1.3s;">
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200 opacity-0" id="footer">
              <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/505586939_4146340092265838_7091657238944270852_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2fy3dZ7ZviMQ7kNvwF5orL2&_nc_oc=AdlfbghW5nD9SmLHVJuGpHEm3HMb-8oKeBD9dXcKhD1YRa8kg_FPknte6cJK4zehn0ObRZl0QKJ4avDp3MDvZKXf&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=ORmH3HA8QxUk5a_BO0KucA&oh=00_AfPNym8rt8whgMjFrH8zvrIpX7iX5ZjtW5YNty4EU4Lz_Q&oe=684BD396" 
                  alt="Logomarca Ax extreme horizontal" 
                  class="mx-auto h-12 w-auto mb-4"
                  onerror="this.onerror=null;this.src='';">
             <p class="text-gray-500">A dedicação de hoje é o resultado de amanhã.</p>
         </footer>
-
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rankingData = [
+                { position: 1, name: 'Ivanilda', points: 5, width: 'w-full', bg: 'bg-green-100', shadow: 'shadow-xl', z: 11, avatar: 'I' },
+                { position: 2, name: 'Flankiln', points: 5, width: 'w-[98%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 10, avatar: 'F' },
+                { position: 3, name: 'Bia', points: 4, width: 'w-[96%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 9, avatar: 'B' },
+                { position: 4, name: 'Ismênia', points: 4, width: 'w-11/12', bg: 'bg-white', shadow: 'shadow-md', z: 8, avatar: 'Is' },
+                { position: 5, name: 'Aline', points: 4, width: 'w-10/12', bg: 'bg-white', shadow: 'shadow-md', z: 7, avatar: 'A' },
+                { position: 6, name: 'Elizandra', points: 4, width: 'w-[80%]', bg: 'bg-white', shadow: 'shadow-md', z: 6, avatar: 'E' },
+                { position: 7, name: 'Iara Jamile', points: 3, width: 'w-9/12', bg: 'bg-white', shadow: 'shadow-sm', z: 5, avatar: 'IJ' },
+                { position: 8, name: 'Eduarda', points: 3, width: 'w-[70%]', bg: 'bg-white', shadow: 'shadow-sm', z: 4, avatar: 'Ed' },
+                { position: 9, name: 'Layssa', points: 2, width: 'w-8/12', bg: 'bg-white', shadow: 'shadow-sm', z: 3, avatar: 'L' },
+                { position: 10, name: 'Silvana', points: 2, width: 'w-[60%]', bg: 'bg-white', shadow: 'shadow-sm', z: 2, avatar: 'S' },
+                { position: 11, name: 'Isa', points: 1, width: 'w-7/12', bg: 'bg-white', shadow: 'shadow-sm', z: 1, avatar: 'Is' }
+            ];
+
+            const container = document.querySelector('.flex.flex-col.items-center');
+            const footer = document.getElementById('footer');
+
+            // Criar e esconder os elementos primeiro
+            rankingData.forEach(item => {
+                const starsHTML = Array.from({ length: item.points }, (_, i) => 
+                    `<span class="star" style="--star-delay: ${i * 0.1}s;">⭐</span>`
+                ).join('');
+
+                const itemHTML = `
+                    <div class="stair-step ranking-item relative ${item.width} ${item.bg} p-3 md:p-4 rounded-lg ${item.shadow} transition-all duration-300" style="z-index: ${item.z};">
+                        <div class="flex items-center space-x-3 md:space-x-4">
+                             <span class="text-xl md:text-2xl font-bold text-gray-500 w-8 text-center">${item.position}.</span>
+                             <img src="https://placehold.co/64x64/f3f4f6/1f2937?text=${item.avatar}" alt="Avatar de ${item.name}" class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white shadow">
+                             <div class="flex-1"><h3 class="font-semibold text-base md:text-lg">${item.name}</h3></div>
+                             <div class="stars text-sm md:text-base">${starsHTML}</div>
+                        </div>
+                    </div>`;
+                container.innerHTML += itemHTML;
+            });
+
+            // Revelar um por um, do último para o primeiro
+            const rankingItems = Array.from(container.querySelectorAll('.ranking-item'));
+            const reversedItems = [...rankingItems].reverse();
+
+            let revealDelay = 1000; // Começa a revelação após 1 segundo
+            reversedItems.forEach(item => {
+                setTimeout(() => {
+                    item.classList.add('is-revealed');
+                }, revealDelay);
+                revealDelay += 800; // Intervalo de 800ms entre cada revelação
+            });
+
+            // Revelar o rodapé no final
+            setTimeout(() => {
+                footer.style.transition = 'opacity 1s ease-in-out';
+                footer.style.opacity = '1';
+            }, revealDelay);
+        });
+    </script>
 </body>
 </html>
