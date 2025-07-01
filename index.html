@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking de Assiduidade - Ax Extreme</title>
+    <title>Ranking Final de Junho - Ax Extreme</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Poppins -->
@@ -15,6 +15,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f9fafb; /* gray-50 */
+            overflow-x: hidden;
         }
 
         /* Animação de brilho para as estrelas */
@@ -48,19 +49,43 @@
             opacity: 1;
             transform: translateX(0) scale(1);
         }
+        
+        /* Animação de brilho para o campeão */
+        @keyframes winnerGlow {
+            0% { box-shadow: 0 0 5px #16a34a, 0 0 10px #16a34a, 0 0 15px #facc15; }
+            50% { box-shadow: 0 0 20px #16a34a, 0 0 30px #16a34a, 0 0 40px #facc15; }
+            100% { box-shadow: 0 0 5px #16a34a, 0 0 10px #16a34a, 0 0 15px #facc15; }
+        }
+
+        .winner {
+            animation: winnerGlow 2.5s infinite ease-in-out;
+        }
+
+        /* Canvas para os fogos de artifício */
+        #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none; /* Permite clicar através do canvas */
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
+
+    <canvas id="fireworks-canvas"></canvas>
 
     <div class="container mx-auto px-4 py-8 md:py-12">
         <!-- Cabeçalho com a logomarca -->
         <header class="text-center mb-10 md:mb-16">
             <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/504266696_4146340088932505_794890781888304560_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kq4Y6UzD-3oQ7kNvwG3ZjyZ&_nc_oc=AdlCCSF7Ewg9OuybhDGi5ebLW9al9JsZ5l22TYhKPda_yvQSF07mgMo9ay3aGtBF9JHdUxs2y2kmivv6jyQWk9nd&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=3ouGmZD5wIbwRFmHasqL4g&oh=00_AfN6T8BPxfzHiBwKwptlQqJccj8s9Kfpg7Iy3sdusD9Shw&oe=684BDAEE" 
-                 alt="Logomarca da Equipe Ax extreme" 
+                 alt="Equipe Ax extreme" 
                  class="mx-auto h-36 md:h-44 w-auto"
                  onerror="this.onerror=null;this.src='https://placehold.co/176x176/ffffff/16a34a?text=Ax';">
-            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900">Ranking de Assiduidade</h1>
-            <p class="text-green-600 text-lg">A classificação da semana</p>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-4 text-gray-900">Ranking Final de Junho</h1>
+            <p id="final-message" class="text-green-600 text-lg mt-2 h-8 opacity-0 transition-opacity duration-1000"></p>
         </header>
 
         <!-- Seção da Escada do Ranking -->
@@ -71,10 +96,6 @@
         </section>
 
         <footer class="text-center mt-12 pt-8 border-t border-gray-200 opacity-0 transition-opacity duration-1000" id="footer">
-             <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/505586939_4146340092265838_7091657238944270852_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2fy3dZ7ZviMQ7kNvwF5orL2&_nc_oc=AdlfbghW5nD9SmLHVJuGpHEm3HMb-8oKeBD9dXcKhD1YRa8kg_FPknte6cJK4zehn0ObRZl0QKJ4avDp3MDvZKXf&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=ORmH3HA8QxUk5a_BO0KucA&oh=00_AfPNym8rt8whgMjFrH8zvrIpX7iX5ZjtW5YNty4EU4Lz_Q&oe=684BD396" 
-                 alt="Logomarca Ax extreme horizontal" 
-                 class="mx-auto h-12 w-auto mb-4"
-                 onerror="this.onerror=null;this.src='';">
             <p class="text-gray-500">A dedicação de hoje é o resultado de amanhã.</p>
         </footer>
     </div>
@@ -82,36 +103,37 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const rankingData = [
-                { position: 1, name: 'Ivanilda', points: 5, width: 'w-full', bg: 'bg-green-100', shadow: 'shadow-xl', z: 12, avatar: 'I' },
-                { position: 2, name: 'Flankiln', points: 5, width: 'w-[98%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 11, avatar: 'F' },
-                { position: 3, name: 'Bia', points: 4, width: 'w-[96%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 10, avatar: 'B' },
-                { position: 4, name: 'Gislayne', points: 4, width: 'w-11/12', bg: 'bg-white', shadow: 'shadow-md', z: 9, avatar: 'G' },
-                { position: 5, name: 'Ismênia', points: 4, width: 'w-10/12', bg: 'bg-white', shadow: 'shadow-md', z: 8, avatar: 'Is' },
-                { position: 6, name: 'Aline', points: 4, width: 'w-[85%]', bg: 'bg-white', shadow: 'shadow-md', z: 7, avatar: 'A' },
-                { position: 7, name: 'Elizandra', points: 4, width: 'w-[80%]', bg: 'bg-white', shadow: 'shadow-md', z: 6, avatar: 'E' },
-                { position: 8, name: 'Iara Jamile', points: 3, width: 'w-9/12', bg: 'bg-white', shadow: 'shadow-sm', z: 5, avatar: 'IJ' },
-                { position: 9, name: 'Eduarda', points: 3, width: 'w-[70%]', bg: 'bg-white', shadow: 'shadow-sm', z: 4, avatar: 'Ed' },
-                { position: 10, name: 'Layssa', points: 2, width: 'w-8/12', bg: 'bg-white', shadow: 'shadow-sm', z: 3, avatar: 'L' },
-                { position: 11, name: 'Silvana', points: 2, width: 'w-[60%]', bg: 'bg-white', shadow: 'shadow-sm', z: 2, avatar: 'S' },
-                { position: 12, name: 'Isa', points: 1, width: 'w-7/12', bg: 'bg-white', shadow: 'shadow-sm', z: 1, avatar: 'Is' }
+                { position: 1, name: 'Ivanilda', points: 20, width: 'w-full', bg: 'bg-green-100', shadow: 'shadow-xl', z: 12, avatar: 'I' },
+                { position: 2, name: 'Franklin', points: 12, width: 'w-[98%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 11, avatar: 'F' },
+                { position: 3, name: 'Lyla', points: 12, width: 'w-[96%]', bg: 'bg-gray-100', shadow: 'shadow-lg', z: 10, avatar: 'Ly' },
+                { position: 4, name: 'Iara Jamile', points: 11, width: 'w-11/12', bg: 'bg-white', shadow: 'shadow-md', z: 9, avatar: 'IJ' },
+                { position: 5, name: 'Ismênia', points: 10, width: 'w-10/12', bg: 'bg-white', shadow: 'shadow-md', z: 8, avatar: 'Is' },
+                { position: 6, name: 'Layssa', points: 10, width: 'w-[85%]', bg: 'bg-white', shadow: 'shadow-md', z: 7, avatar: 'La' },
+                { position: 7, name: 'Elizandra', points: 9, width: 'w-[80%]', bg: 'bg-white', shadow: 'shadow-md', z: 6, avatar: 'E' },
+                { position: 8, name: 'Eduarda', points: 9, width: 'w-9/12', bg: 'bg-white', shadow: 'shadow-sm', z: 5, avatar: 'Ed' },
+                { position: 9, name: 'Isa', points: 9, width: 'w-[70%]', bg: 'bg-white', shadow: 'shadow-sm', z: 4, avatar: 'Isa' },
+                { position: 10, name: 'Bia', points: 8, width: 'w-8/12', bg: 'bg-white', shadow: 'shadow-sm', z: 3, avatar: 'Bia' },
+                { position: 11, name: 'Silvana', points: 8, width: 'w-[60%]', bg: 'bg-white', shadow: 'shadow-sm', z: 2, avatar: 'S' },
+                { position: 12, name: 'Gislayne', points: 8, width: 'w-7/12', bg: 'bg-white', shadow: 'shadow-sm', z: 1, avatar: 'G' }
             ];
 
             const rankingContainer = document.querySelector('#ranking-section .flex.flex-col');
             const footer = document.getElementById('footer');
+            const finalMessage = document.getElementById('final-message');
 
             // Preparar os itens do ranking no DOM
             rankingData.forEach(item => {
                 const starsHTML = Array.from({ length: item.points }, (_, i) => 
-                    `<span class="star" style="--star-delay: ${i * 0.1}s;">⭐</span>`
+                    `<span class="star" style="--star-delay: ${i * 0.05}s;">⭐</span>`
                 ).join('');
 
                 const itemHTML = `
-                    <div class="stair-step ranking-item relative ${item.width} ${item.bg} p-3 md:p-4 rounded-lg ${item.shadow} transition-all duration-300" style="z-index: ${item.z};">
+                    <div class="stair-step ranking-item relative ${item.width} ${item.bg} p-3 md:p-4 rounded-lg ${item.shadow} transition-all duration-300" style="z-index: ${item.z};" data-position="${item.position}">
                         <div class="flex items-center space-x-3 md:space-x-4">
                              <span class="text-xl md:text-2xl font-bold text-gray-500 w-8 text-center">${item.position}.</span>
                              <img src="https://placehold.co/64x64/f3f4f6/1f2937?text=${item.avatar}" alt="Avatar de ${item.name}" class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white shadow">
                              <div class="flex-1"><h3 class="font-semibold text-base md:text-lg">${item.name}</h3></div>
-                             <div class="stars text-sm md:text-base">${starsHTML}</div>
+                             <div class="stars text-sm md:text-base flex flex-wrap">${starsHTML}</div>
                         </div>
                     </div>`;
                 rankingContainer.innerHTML += itemHTML;
@@ -121,18 +143,173 @@
             const rankingItems = Array.from(rankingContainer.querySelectorAll('.ranking-item'));
             const reversedItems = [...rankingItems].reverse();
 
-            let revealDelay = 500; // Delay para começar a primeira revelação
+            let revealDelay = 500;
             reversedItems.forEach(item => {
                 setTimeout(() => {
                     item.classList.add('is-revealed');
+                    // Adiciona a animação de brilho quando o campeão for revelado
+                    if(item.dataset.position === '1') {
+                        item.classList.add('winner');
+                        // Inicia os fogos de artifício
+                        launchFireworks();
+                    }
                 }, revealDelay);
-                revealDelay += 400; // Intervalo entre cada revelação (mais rápido agora)
+                revealDelay += 400;
             });
 
-            // Revelar o rodapé no final
+            // Revelar a mensagem de parabéns e o rodapé no final com suspense
             setTimeout(() => {
-                footer.style.opacity = '1';
+                finalMessage.innerHTML = 'E o resultado final é... 🏆';
+                finalMessage.style.opacity = '1';
+
+                setTimeout(() => {
+                    finalMessage.innerHTML = 'Parabéns a todos pelo esforço e dedicação!';
+                    footer.style.opacity = '1';
+                }, 2500); // Suspense de 2.5s
             }, revealDelay);
+
+            // --- LÓGICA DOS FOGOS DE ARTIFÍCIO ---
+            const canvas = document.getElementById('fireworks-canvas');
+            const ctx = canvas.getContext('2d');
+            let fireworks = [];
+            let particles = [];
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            function Firework(sx, sy, tx, ty) {
+                this.x = sx;
+                this.y = sy;
+                this.sx = sx;
+                this.sy = sy;
+                this.tx = tx;
+                this.ty = ty;
+                this.distanceToTarget = Math.sqrt(Math.pow(tx - sx, 2) + Math.pow(ty - sy, 2));
+                this.distanceTraveled = 0;
+                this.coordinates = [];
+                this.coordinateCount = 3;
+                while (this.coordinateCount--) {
+                    this.coordinates.push([this.x, this.y]);
+                }
+                this.angle = Math.atan2(ty - sy, tx - sx);
+                this.speed = 2;
+                this.acceleration = 1.05;
+                this.brightness = Math.random() * 50 + 50;
+                this.targetRadius = 1;
+            }
+
+            Firework.prototype.update = function(index) {
+                this.coordinates.pop();
+                this.coordinates.unshift([this.x, this.y]);
+                if (this.targetRadius < 8) {
+                    this.targetRadius += 0.3;
+                } else {
+                    this.targetRadius = 1;
+                }
+                this.speed *= this.acceleration;
+                let vx = Math.cos(this.angle) * this.speed;
+                let vy = Math.sin(this.angle) * this.speed;
+                this.distanceTraveled = Math.sqrt(Math.pow(this.x - this.sx, 2) + Math.pow(this.y - this.sy, 2));
+                if (this.distanceTraveled >= this.distanceToTarget) {
+                    createParticles(this.tx, this.ty);
+                    fireworks.splice(index, 1);
+                } else {
+                    this.x += vx;
+                    this.y += vy;
+                }
+            };
+
+            Firework.prototype.draw = function() {
+                ctx.beginPath();
+                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = `hsl(${Math.random() * 360}, 100%, ${this.brightness}%)`;
+                ctx.stroke();
+            };
+
+            function Particle(x, y) {
+                this.x = x;
+                this.y = y;
+                this.coordinates = [];
+                this.coordinateCount = 5;
+                while (this.coordinateCount--) {
+                    this.coordinates.push([this.x, this.y]);
+                }
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 10 + 1;
+                this.friction = 0.95;
+                this.gravity = 1;
+                this.hue = Math.random() * 360;
+                this.brightness = Math.random() * 50 + 50;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.03 + 0.015;
+            }
+
+            Particle.prototype.update = function(index) {
+                this.coordinates.pop();
+                this.coordinates.unshift([this.x, this.y]);
+                this.speed *= this.friction;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed + this.gravity;
+                this.alpha -= this.decay;
+                if (this.alpha <= this.decay) {
+                    particles.splice(index, 1);
+                }
+            };
+
+            Particle.prototype.draw = function() {
+                ctx.beginPath();
+                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
+                ctx.stroke();
+            };
+
+            function createParticles(x, y) {
+                let particleCount = 30;
+                while (particleCount--) {
+                    particles.push(new Particle(x, y));
+                }
+            }
+
+            function launchFireworks() {
+                let fireworkInterval = setInterval(() => {
+                    let startX = canvas.width / 2;
+                    let startY = canvas.height;
+                    let targetX = Math.random() * canvas.width;
+                    let targetY = Math.random() * canvas.height / 2;
+                    fireworks.push(new Firework(startX, startY, targetX, targetY));
+                }, 400); // Mais fogos (intervalo menor)
+
+                setTimeout(() => clearInterval(fireworkInterval), 10000); // Fogos por mais tempo (10 segundos)
+            }
+
+            function loop() {
+                requestAnimationFrame(loop);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = 'lighter';
+
+                let i = fireworks.length;
+                while (i--) {
+                    fireworks[i].draw();
+                    fireworks[i].update(i);
+                }
+
+                let j = particles.length;
+                while (j--) {
+                    particles[j].draw();
+                    particles[j].update(j);
+                }
+            }
+            
+            loop(); // Inicia o loop de animação do canvas
         });
     </script>
 </body>
