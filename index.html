@@ -97,7 +97,20 @@
 
         <footer class="text-center mt-12 pt-8 border-t border-gray-200 opacity-0 transition-opacity duration-1000" id="footer">
             <p class="text-gray-500">A dedicação de hoje é o resultado de amanhã.</p>
+            <p class="text-gray-400 text-xs mt-4 cursor-pointer hover:text-green-600" id="easter-egg-trigger">Um agradecimento especial a Zé Calu</p>
         </footer>
+    </div>
+
+    <!-- Easter Egg Modal -->
+    <div id="easter-egg-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4" style="z-index: 10000;">
+        <div class="bg-white p-4 rounded-lg shadow-xl relative max-w-sm w-full">
+            <button id="easter-egg-close" class="absolute -top-2 -right-2 bg-white rounded-full p-1 text-gray-800 hover:bg-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <img src="https://scontent.fqcp1-1.fna.fbcdn.net/v/t39.30808-6/494677610_2484026371944483_7836847814149688730_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=9EkYJiqTGkcQ7kNvwHt6DCI&_nc_oc=Adnaf8IUUrB_Mm9EN_u6T0qeAXbfQmu4R4sycJYAHun5ot6LL1l57b8-c8AlGZyTZA4vqUFoHXjQa6qLGHS1tI0f&_nc_zt=23&_nc_ht=scontent.fqcp1-1.fna&_nc_gid=VTZT1pS95KVmVzIPsmUWGg&oh=00_AfPRKKgI3YW8SD2KTDzQhsLiHMuj0oDms4Ui0R-vYd531w&oe=6869BC53" alt="Easter Egg Zé Calu" class="w-full h-auto rounded">
+        </div>
     </div>
 
     <script>
@@ -167,6 +180,30 @@
                     footer.style.opacity = '1';
                 }, 2500); // Suspense de 2.5s
             }, revealDelay);
+
+            // --- LÓGICA DO EASTER EGG ---
+            const easterEggTrigger = document.getElementById('easter-egg-trigger');
+            const easterEggModal = document.getElementById('easter-egg-modal');
+            const easterEggClose = document.getElementById('easter-egg-close');
+
+            if (easterEggTrigger && easterEggModal && easterEggClose) {
+                easterEggTrigger.addEventListener('click', () => {
+                    easterEggModal.classList.remove('hidden');
+                    easterEggModal.classList.add('flex');
+                });
+
+                easterEggClose.addEventListener('click', () => {
+                    easterEggModal.classList.add('hidden');
+                    easterEggModal.classList.remove('flex');
+                });
+
+                easterEggModal.addEventListener('click', (event) => {
+                    if (event.target === easterEggModal) {
+                        easterEggModal.classList.add('hidden');
+                        easterEggModal.classList.remove('flex');
+                    }
+                });
+            }
 
             // --- LÓGICA DOS FOGOS DE ARTIFÍCIO ---
             const canvas = document.getElementById('fireworks-canvas');
