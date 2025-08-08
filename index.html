@@ -7,18 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Teko', sans-serif;
-            background-color: #000; /* Fundo preto para melhor contraste da animação */
+            background-color: #000;
             overflow-x: hidden;
         }
         .text-glow {
             text-shadow: 0 0 8px rgba(52, 211, 153, 0.8), 0 0 20px rgba(52, 211, 153, 0.5);
         }
         .card {
-            background-color: rgba(17, 24, 39, 0.85); /* bg-gray-900 with opacity */
+            background-color: rgba(17, 24, 39, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(52, 211, 153, 0.2);
             animation: fadeIn 1s ease-in-out;
@@ -29,16 +29,17 @@
         }
         .rank-item {
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         .rank-item:hover {
             background-color: rgba(52, 211, 153, 0.1);
             transform: scale(1.02);
         }
         .crown {
-            color: #facc15; /* yellow-400 */
+            color: #facc15;
             text-shadow: 0 0 10px #facc15;
         }
-        canvas {
+        canvas#matrix-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -46,6 +47,54 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+        }
+        /* Estilos do Modal/Certificado */
+        #certificate-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #certificate-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .certificate-content {
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(145deg, #f0fff0, #e6f7e6);
+            color: #1a2e21;
+            padding: 2rem 3rem;
+            border-radius: 10px;
+            border: 10px solid #34D399;
+            border-image: linear-gradient(45deg, #34D399, #A7F3D0) 1;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+            text-align: center;
+            max-width: 90vw;
+            width: 600px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+        #certificate-modal.show .certificate-content {
+            transform: scale(1);
+        }
+        .certificate-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2.5rem;
+            color: #34D399;
+            cursor: pointer;
+            line-height: 1;
         }
     </style>
 </head>
@@ -66,18 +115,18 @@
             <div class="card rounded-2xl p-6 shadow-2xl" style="animation-delay: 0.4s;">
                 <h3 class="text-4xl font-bold text-center mb-6 text-green-400 text-glow">Feminino</h3>
                 <ol class="space-y-3 text-xl">
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg bg-green-500/20 border border-green-400">
-                        <span class="flex items-center"><span class="text-2xl mr-3 crown">🏆</span> Ivanilda</span> <span class="font-bold">18 Pontos</span>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg bg-green-500/20 border border-green-400" data-name="Ivanilda" data-days="18">
+                        <span><span class="text-2xl mr-3 crown">🏆</span> Ivanilda</span> <span class="font-bold">18 Pontos</span>
                     </li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">2</span> Layssa</span> <span class="font-bold">16 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">3</span> Elizandra</span> <span class="font-bold">13 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">4</span> Jeovana</span> <span class="font-bold">12 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">5</span> Eduarda</span> <span class="font-bold">11 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">6</span> Iara</span> <span class="font-bold">11 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">7</span> Gabi</span> <span class="font-bold">11 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">8</span> Lyla</span> <span class="font-bold">11 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">9</span> Aline</span> <span class="font-bold">8 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">10</span> Isa</span> <span class="font-bold">8 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Layssa" data-days="16"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">2</span> Layssa</span> <span class="font-bold">16 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Elizandra" data-days="13"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">3</span> Elizandra</span> <span class="font-bold">13 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Jeovana" data-days="12"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">4</span> Jeovana</span> <span class="font-bold">12 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Eduarda" data-days="11"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">5</span> Eduarda</span> <span class="font-bold">11 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Iara" data-days="11"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">6</span> Iara</span> <span class="font-bold">11 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Gabi" data-days="11"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">7</span> Gabi</span> <span class="font-bold">11 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Lyla" data-days="11"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">8</span> Lyla</span> <span class="font-bold">11 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Aline" data-days="8"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">9</span> Aline</span> <span class="font-bold">8 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Isa" data-days="8"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">10</span> Isa</span> <span class="font-bold">8 Pontos</span></li>
                 </ol>
             </div>
 
@@ -85,16 +134,31 @@
             <div class="card rounded-2xl p-6 shadow-2xl" style="animation-delay: 0.6s;">
                 <h3 class="text-4xl font-bold text-center mb-6 text-green-400 text-glow">Masculino</h3>
                 <ol class="space-y-3 text-xl">
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg bg-green-500/20 border border-green-400">
-                        <span class="flex items-center"><span class="text-2xl mr-3 crown">🏆</span> Fernando</span> <span class="font-bold">19 Pontos</span>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg bg-green-500/20 border border-green-400" data-name="Fernando" data-days="19">
+                        <span><span class="text-2xl mr-3 crown">🏆</span> Fernando</span> <span class="font-bold">19 Pontos</span>
                     </li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">2</span> Geraldo</span> <span class="font-bold">16 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">3</span> João Victor</span> <span class="font-bold">12 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">4</span> Zé Carlos</span> <span class="font-bold">12 Pontos</span></li>
-                    <li class="rank-item flex items-center justify-between p-3 rounded-lg"><span class="flex items-center"><span class="font-bold w-6 text-center mr-2 text-gray-400">5</span> Ericy</span> <span class="font-bold">10 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Geraldo" data-days="16"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">2</span> Geraldo</span> <span class="font-bold">16 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="João Victor" data-days="12"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">3</span> João Victor</span> <span class="font-bold">12 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Zé Carlos" data-days="12"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">4</span> Zé Carlos</span> <span class="font-bold">12 Pontos</span></li>
+                    <li class="rank-item flex items-center justify-between p-3 rounded-lg" data-name="Ericy" data-days="10"><span><span class="font-bold w-6 text-center mr-2 text-gray-400">5</span> Ericy</span> <span class="font-bold">10 Pontos</span></li>
                 </ol>
             </div>
         </main>
+    </div>
+
+    <!-- Modal do Certificado -->
+    <div id="certificate-modal">
+        <div class="certificate-content">
+            <span class="certificate-close">&times;</span>
+            <h2 class="text-3xl font-bold mb-4 text-green-600" style="font-family: 'Teko', sans-serif;">Certificado de Dedicação</h2>
+            <p class="text-lg mb-2">Certificamos que</p>
+            <p id="certificate-name" class="text-4xl font-bold text-gray-800 mb-2"></p>
+            <p id="certificate-text" class="text-lg"></p>
+            <div class="mt-6">
+                <svg class="w-20 h-20 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                <p class="text-sm text-gray-500 mt-2 font-bold">AX EXTREME</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -119,27 +183,20 @@
         }
         
         function drawMatrix() {
-            // Fundo preto semi-transparente para criar o efeito de rastro
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Cor dos caracteres
-            ctx.fillStyle = '#34D399'; // Cor verde (tailwind green-400)
+            ctx.fillStyle = '#34D399';
             ctx.font = fontSize + 'px monospace';
             
             for (let i = 0; i < drops.length; i++) {
-                // Pega um caractere aleatório
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                // Desenha o caractere
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
                 
-                // Reseta a gota para o topo se ela atingir o final da tela
-                // Adiciona uma chance aleatória para não resetar todas ao mesmo tempo
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 
-                // Move a gota para baixo
                 drops[i]++;
             }
         }
@@ -153,7 +210,47 @@
         }
 
         window.addEventListener('resize', startAnimation);
+        
+        // --- Script do Certificado ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('certificate-modal');
+            const rankItems = document.querySelectorAll('.rank-item');
+            const certName = document.getElementById('certificate-name');
+            const certText = document.getElementById('certificate-text');
+            const closeButton = document.querySelector('.certificate-close');
+
+            const showModal = (name, days) => {
+                const month = "Julho"; // Mês fixado para Julho
+                certName.textContent = name;
+                certText.innerHTML = `demonstrou grande empenho e dedicação, completando <strong class="text-2xl">${days} dias</strong> de corrida no mês de <strong>${month}</strong>.`;
+                modal.classList.add('show');
+            };
+
+            const hideModal = () => {
+                modal.classList.remove('show');
+            };
+
+            rankItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const name = item.dataset.name;
+                    const days = item.dataset.days;
+                    if (name && days) {
+                        showModal(name, days);
+                    }
+                });
+            });
+
+            closeButton.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+        });
+
+        // Inicia a animação de fundo quando a página carregar
         window.onload = startAnimation;
+
     </script>
 </body>
 </html>
